@@ -45,7 +45,7 @@ mongoose.connect(process.env.MONGODB_URI)
     isDbConnected = true;
   })
   .catch(err => {
-    console.error('MongoDB connection error. Switching to Mock Fallback.');
+    console.error('MongoDB connection error:', err.message);
     isDbConnected = false;
   });
 
