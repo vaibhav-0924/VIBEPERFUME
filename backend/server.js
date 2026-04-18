@@ -24,7 +24,7 @@ app.use('/api/products', productRoutes);
 // Serve static assets in production (optional, as per PRD "Express server must serve the React app's index.html")
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../frontend/dist')));
-  app.get('*', (req, res) => {
+  app.get('(.*)', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../frontend', 'dist', 'index.html'));
   });
 } else {
