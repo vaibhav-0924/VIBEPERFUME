@@ -15,7 +15,21 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'https://vaibhav-0924.github.io',
+  'http://localhost:5173',
+];
+app.use(cors({
+  origin: (origin, callback) => {
+    // allow requests with no origin (curl, Postman)
+    if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
 app.use(express.json());
 
 // Routes
